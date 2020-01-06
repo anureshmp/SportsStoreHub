@@ -37,7 +37,7 @@ namespace SportsStore.Tests
             controller.PageSize = 3;
 
             IEnumerable<Product> result =
-                controller.List(2).ViewData.Model as IEnumerable<Product>;
+                controller.List(null,2).ViewData.Model as IEnumerable<Product>;
 
             Product[] prodArray = result.ToArray();
             Assert.True(prodArray.Length == 2);
@@ -67,7 +67,7 @@ namespace SportsStore.Tests
             };
 
             ProductsListViewModel result =
-                controller.List(2).ViewData.Model as ProductsListViewModel;
+                controller.List(null, 2).ViewData.Model as ProductsListViewModel;
 
             PagingInfo pageinfo = result.PagingInfo;
 
