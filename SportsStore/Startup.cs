@@ -27,8 +27,10 @@ namespace SportsStore
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDBContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));  
             services.AddTransient<IProductRepository, EFProductRepository>();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddTransient<IOrderRepository, EFOrderRepository>();
             services.AddMvc();
             services.AddMemoryCache();
             services.AddSession();
