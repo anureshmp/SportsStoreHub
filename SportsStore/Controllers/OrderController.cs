@@ -58,6 +58,27 @@ namespace SportsStore.Controllers
             return View();
         }
 
+        public ViewResult List()
+        {
+            return View(repository.Orders.Where(o => !o.Shipped));
+        }
+
+        [HttpPost]
+        public IActionResult MarkShipped(int OrderID)
+        {
+            Order order = repository.Orders.FirstOrDefault(o => o.OrderID == OrderID);
+
+            if(order != null)
+            {
+                order.Shipped = true;
+                repository.SaveOrder(order);
+            }
+
+            return RedirectToAction(nameof(List));
+
+        }
+
+
         private Cart GetCart()
         {
             Cart cart = HttpContext.Session.GetJson<Cart>("Cart") ?? new Cart();
